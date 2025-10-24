@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Memory Flip Game — Retro Arcade</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="retro-bg"> 
+
+    <nav class="navbar navbar-dark fixed-top retro-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand retro-brand" href="#">⚡ MEMORY ARCADE ⚡</a>
+        <div class="d-flex gap-2 align-items-center">
+          <button class="btn retro-btn" id="playBtn">PLAY</button>
+          <button class="btn retro-btn" id="scoreBtn">SCORES</button>
+          <button id="themeToggle" class="btn retro-btn" title="Toggle theme">THEME</button>
+          <button id="musicToggle" class="btn retro-btn" title="Music: Toggle">MUSIC</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container text-center main-container">
+      <h2 class="arcade-title">MATCH THE CARDS!</h2>
+
+      <div class="info-row">
+        <div id="timer" class="info-pill">Time 00:00</div>
+        <div id="bestScore" class="info-pill">Best Time: --:--</div>
+      </div>
+
+      <div id="gameBoard" class="game-board"></div>
+
+      <div class="controls mt-4">
+        <button id="resetBtn" class="control-btn">RESET</button>
+        <button id="revealBtn" class="control-btn">REVEAL</button>
+        <button id="freezeBtn" class="control-btn">FREEZE</button>
+      </div>
+    </div>
+
+    <div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content retro-modal">
+          <div class="modal-header">
+            <h5 class="modal-title" id="scoreModalLabel">Game Scores</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="modalBestScore" class="mb-3">Best Time: --:--</p>
+            <div class="mb-2">Games Played</div>
+            <ul id="gamesList" class="list-group retro-list"></ul>
+          </div>
+          <div class="modal-footer">
+            <button id="clearHistoryBtn" class="btn btn-outline-danger">Clear History</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>

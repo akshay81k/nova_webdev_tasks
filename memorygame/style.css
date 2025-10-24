@@ -1,0 +1,370 @@
+/* ---------- Variables ---------- */
+:root {
+  --bg-dark: #071021;
+  --panel: #0b1220;
+  --neon-blue: #00d8ff;
+  --neon-pink: #ff3de8;
+  --neon-green: #9dff00;
+  --accent: #7a39ff;
+  --muted: #9aa7b2;
+  --card-bg: #10151c;
+  --card-face: #ffffff;
+}
+
+/* ---------- Base Styles ---------- */
+body {
+  font-family: "Press Start 2P", monospace;
+  margin: 0;
+  color: var(--neon-blue);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.retro-bg {
+  background: radial-gradient(
+      ellipse at 10% 20%,
+      rgba(122, 57, 255, 0.06) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      ellipse at 90% 80%,
+      rgba(0, 216, 255, 0.04) 0%,
+      transparent 25%
+    ),
+    linear-gradient(180deg, #02040a 0%, #071021 60%);
+  min-height: 100vh;
+  padding-top: 72px; /* space for fixed navbar */
+  background-attachment: fixed;
+}
+
+.retro-bg::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.01) 1px,
+    transparent 1px
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Navbar ---------- */
+.retro-navbar {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 12, 18, 0.95),
+    rgba(20, 10, 40, 0.9)
+  );
+  border-bottom: 2px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.7);
+}
+
+.retro-brand {
+  color: var(--neon-pink);
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255, 61, 232, 0.18),
+    0 0 20px rgba(122, 57, 255, 0.06);
+}
+
+/* ---------- Main Container ---------- */
+.main-container {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 28px;
+}
+
+.arcade-title {
+  color: var(--neon-pink);
+  margin-bottom: 8px;
+  font-size: 18px;
+  text-shadow: 0 0 10px rgba(255, 61, 232, 0.16);
+}
+
+/* Info Pills */
+.info-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.info-pill {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  color: var(--neon-green);
+  box-shadow: 0 0 18px rgba(157, 255, 0, 0.06);
+  font-size: 10px;
+}
+
+/* ---------- Game Board ---------- */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 110px);
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  margin: 8px auto;
+  padding: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.01),
+    rgba(0, 0, 0, 0.02)
+  );
+  border-radius: 12px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6), 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- Card ---------- */
+.card {
+  width: 110px;
+  height: 130px;
+  border-radius: 8px;
+  perspective: 1000px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+/* Card inner for 3D flip */
+.card-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  transform-style: preserve-3d;
+  transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 200ms;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  font-size: 44px;
+}
+
+/* Back face */
+.card-back {
+  background: linear-gradient(135deg, rgba(16, 21, 28, 1), rgba(28, 10, 40, 1));
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  color: var(--neon-blue);
+  box-shadow: 0 0 12px rgba(0, 216, 255, 0.06),
+    0 0 30px rgba(122, 57, 255, 0.02);
+  transform: rotateY(0deg);
+  font-size: 28px;
+}
+
+/* Front face */
+.card-front {
+  transform: rotateY(180deg);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  color: var(--card-face);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 46px;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+  box-shadow: 0 14px 40px rgba(122, 57, 255, 0.12);
+}
+.card.matched .card-inner {
+  animation: glow 1s infinite alternate;
+  cursor: default;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 8px rgba(157, 255, 0, 0.25),
+      0 10px 30px rgba(122, 57, 255, 0.03);
+  }
+  to {
+    box-shadow: 0 0 22px rgba(157, 255, 0, 0.45),
+      0 20px 40px rgba(122, 57, 255, 0.05);
+  }
+}
+
+/* ---------- Controls ---------- */
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.control-btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+  color: #060606;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(122, 57, 255, 0.12);
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.control-btn:active {
+  transform: translateY(1px) scale(0.995);
+}
+.control-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(0.2);
+}
+
+/* Retro navbar buttons */
+.retro-btn {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  color: var(--neon-blue);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 8px 10px;
+  font-size: 10px;
+  text-shadow: 0 0 10px rgba(0, 216, 255, 0.04);
+}
+
+/* Modal */
+.retro-modal {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 10, 16, 0.95),
+    rgba(12, 6, 30, 0.98)
+  );
+  color: var(--neon-green);
+  border: 2px solid rgba(157, 255, 0, 0.06);
+}
+.retro-list .list-group-item {
+  background: transparent;
+  color: var(--neon-blue);
+  border: 1px dashed rgba(255, 255, 255, 0.02);
+  font-size: 10px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .game-board {
+    grid-template-columns: repeat(3, 90px);
+    gap: 10px;
+  }
+  .card {
+    width: 90px;
+    height: 110px;
+  }
+  .card-front {
+    font-size: 36px;
+  }
+  .card-back {
+    font-size: 28px;
+  }
+  .info-pill {
+    font-size: 8px;
+    padding: 5px 8px;
+  }
+  .control-btn {
+    padding: 8px 12px;
+    font-size: 9px;
+  }
+  .arcade-title {
+    font-size: 16px;
+  }
+}
+@media (max-width: 520px) {
+  .game-board {
+    grid-template-columns: repeat(2, 70px);
+    gap: 8px;
+  }
+  .card {
+    width: 70px;
+    height: 90px;
+  }
+  .card-front {
+    font-size: 24px;
+  }
+  .card-back {
+    font-size: 20px;
+  }
+  .info-pill {
+    font-size: 7px;
+    padding: 4px 6px;
+  }
+  .control-btn {
+    font-size: 8px;
+    padding: 4px 8px;
+  }
+  .arcade-title {
+    font-size: 14px;
+  }
+}
+
+/* ---------- Light theme ---------- */
+.light-theme {
+  --bg-dark: #e9eef6;
+  --panel: #ffffff;
+  --neon-blue: #0066ff;
+  --neon-pink: #ff4fb6;
+  --neon-green: #0a8f00;
+  background: linear-gradient(180deg, #f9fbff, #e9eef6);
+  color: #09203f;
+}
+.light-theme .retro-brand {
+  color: var(--neon-blue);
+}
+.light-theme .main-container {
+  color: #09203f;
+}
+.light-theme .retro-navbar {
+  background: linear-gradient(
+    90deg,
+    rgba(230, 230, 240, 0.95),
+    rgba(245, 245, 255, 0.9)
+  );
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+}
+.light-theme .control-btn {
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+  color: #fff;
+}
+.light-theme .retro-btn {
+  background: linear-gradient(
+    90deg,
+    rgba(240, 240, 250, 0.8),
+    rgba(245, 245, 255, 0.7)
+  );
+  color: var(--neon-blue);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.light-theme .retro-modal {
+  background: linear-gradient(180deg, #ffffffcc, #f2f2f2cc);
+  color: var(--neon-green);
+  border: 2px solid rgba(0, 140, 0, 0.3);
+}
+.light-theme .retro-list .list-group-item {
+  color: #0066ff;
+  border: 1px dashed rgba(0, 0, 0, 0.05);
+}
